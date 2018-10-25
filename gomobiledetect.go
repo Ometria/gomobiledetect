@@ -75,8 +75,8 @@ func NewMobileDetect(r *http.Request, rules *Rules) *MobileDetect {
 		rules = NewRules()
 	}
 	md := &MobileDetect{
-		rules:              rules,
-		userAgent:          []byte(r.UserAgent()),
+		rules:     rules,
+		userAgent: []byte(r.UserAgent()),
 		//httpHeaders:        getHttpHeaders(r),
 		compiledRegexRules: make(map[string]*regexp.Regexp, len(rules.mobileDetectionRules())),
 		//properties:         newProperties(),
@@ -129,13 +129,13 @@ func (md *MobileDetect) IsMobile() bool {
 	//if md.CheckHttpHeadersForMobile() {
 	//	return true
 	//}
-	//return md.matchDetectionRulesAgainstUA()
-	for _, ruleValue := range md.rules.phoneDevices {
-		if md.match(ruleValue) {
-			return true
-		}
-	}
-	return false
+	return md.matchDetectionRulesAgainstUA()
+	// for _, ruleValue := range md.rules.phoneDevices {
+	// 	if md.match(ruleValue) {
+	// 		return true
+	// 	}
+	// }
+	// return false
 }
 
 // IsMobile is a specific case to detect only mobile browsers on tablets. Do not overlap with IsMobile
